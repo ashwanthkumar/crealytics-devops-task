@@ -26,12 +26,12 @@ This should launch the server on the port `8080` by default if no `PORT` environ
 | Endpoint | Method | Description |
 | :--- | :---: | :--- |
 | /healthcheck | GET | Returns a 200 response code if the service is up |
-| /v1/instances/create | POST | You need to pass "user" and "password" either as query parameter or part of the JSON payload in the body. You can also control the instance type, zone, instance image, etc. See **InstanceRequest Model** for the full specification. We would wait for the instance to start and return the username, password and all the ip addresses associated the instance. |
+| /v1/instances/create | POST | You need to pass "user" and "password" either as query parameter or part of the JSON payload in the body. You can also control the instance type, zone, instance image, etc. See [InstanceRequest Model](#instancerequest-model) for the full specification. We would wait for the instance to start and return the username, password and all the ip addresses associated the instance. |
 | /v1/instances/info/:name | GET | Returns the information about the instance identified by `:name` in the path parameter. This is mostly used for debugging the instance related information. It returns the [Instance](https://godoc.org/google.golang.org/api/compute/v1#Instance) object as the response. |
 
 ### InstanceRequest Model
 
-- `user` - Login of the user to create. Once the instance is created you can become that user via `su - ${user}`. This user also has `sudo` rights on the system.
+- `username` - Login of the user to create. Once the instance is created you can become that user via `su - ${user}`. This user also has `sudo` rights on the system.
 - `password` - Password of the user that we created.
 - `instance-name` - Name of the instance (VM) that we create on Google cloud. Defaults to "crealytics-devops-task-demo".
 - `instance-type` - [Machine Type](https://cloud.google.com/compute/docs/machine-types) of the VM to create. Defaults to "f1-micro".
