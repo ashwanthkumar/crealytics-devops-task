@@ -5,3 +5,9 @@ import:
   subpackages:
   - compute/v1
   - googleapi
+- package: golang.org/x/oauth2
+  subpackages:
+  - google
+- package: golang.org/x/net
+  subpackages:
+  - context

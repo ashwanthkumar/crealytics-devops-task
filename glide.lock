@@ -1,6 +1,10 @@
-hash: 11c2b845eb85ca3343e13d2b8c44fe840f8bc33ded197f4f049c9419e4f0f25a
-updated: 2017-09-01T07:46:40.993927288+05:30
+hash: 2b325185e66ea7189acbe10051201c695e95175558257560762606fa1ff58b17
+updated: 2017-09-01T09:15:51.911915737+05:30
 imports:
+- name: cloud.google.com/go
+  version: 2b74e2e25316cfd9e46b74e444cdeceb78786dc5
+  subpackages:
+  - compute/metadata
 - name: github.com/gin-contrib/sse
   version: 22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae
 - name: github.com/gin-gonic/gin
@@ -21,6 +25,18 @@ imports:
   version: 8c0409fcbb70099c748d71f714529204975f6c3f
   subpackages:
   - codec
+- name: golang.org/x/net
+  version: ffcf1bedda3b04ebb15a168a59800a73d6dc0f4d
+  subpackages:
+  - context
+  - context/ctxhttp
+- name: golang.org/x/oauth2
+  version: 9a379c6b3e95a790ffc43293c2a78dee0d7b6e20
+  subpackages:
+  - google
+  - internal
+  - jws
+  - jwt
 - name: golang.org/x/sys
   version: a07a691ac871746ae690ccf3ab217363b2144531
   subpackages:
@@ -29,7 +45,21 @@ imports:
   version: 955a3ae66b420f3adc0d77da3d8ed767a74e2b4f
   subpackages:
   - compute/v1
+  - gensupport
   - googleapi
+  - googleapi/internal/uritemplates
+- name: google.golang.org/appengine
+  version: d9a072cfa7b9736e44311ef77b3e09d804bfa599
+  subpackages:
+  - internal
+  - internal/app_identity
+  - internal/base
+  - internal/datastore
+  - internal/log
+  - internal/modules
+  - internal/remote_api
+  - internal/urlfetch
+  - urlfetch
 - name: gopkg.in/go-playground/validator.v8
   version: 5f1438d3fca68893a817e4a66806cea46a9e4ebf
 - name: gopkg.in/yaml.v2
