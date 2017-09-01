@@ -17,6 +17,8 @@ The above 2 commands will install all the necessary dependencies and build a sin
 
 This should launch the server on the port `8080` by default if no `PORT` environment variable is set, else it would run on that port.
 
+## Note on Google Cloud Credentials
+The app configures itself with google cloud credentials via [Application Default Credentials](https://developers.google.com/identity/protocols/application-default-credentials). Please follow the instructions to configure the credentials.
+
 ## License
 http://www.apache.org/licenses/LICENSE-2.0
-
