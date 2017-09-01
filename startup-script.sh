@@ -10,19 +10,17 @@ function metadata {
 CUSTOM_USER_KEY="custom-user"
 CUSTOM_USER_PASSWD_KEY="custom-user-passwd"
 
-## Startup script used for setting the password of the root user as part of bootstrap
-mkdir -p ~/ashwanth_test/
-
 NAME=$(metadata "name")
 ZONE=$(metadata "zone")
 USERNAME=$(metadata "attributes/${CUSTOM_USER_KEY}")
 PASSWORD=$(metadata "attributes/${CUSTOM_USER_PASSWD_KEY}")
 
-## Setup the user, password and his sudo access
+# Create a user identified by ${USERNAME}:${PASSWORD} and having sudo access on the instance
 
 addgroup ${USERNAME}-g
 useradd ${USERNAME} --create-home --shell /bin/bash --group ${USERNAME}-g
 usermod -aG sudo ${USERNAME}
 echo "${USERNAME}:${PASSWORD}" | chpasswd
 
+# Delete the plain text username and password once we've set things up
 gcloud compute instances remove-metadata ${NAME} --zone ${ZONE} --keys ${CUSTOM_USER_KEY},${CUSTOM_USER_PASSWD_KEY}
