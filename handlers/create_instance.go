@@ -6,16 +6,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// InstanceRequest is a model to bind the incoming request to a struct
+// InstanceRequest is a model to bind the incoming request for /v1/create/instances
 type InstanceRequest struct {
-	Username       string `json:"user" binding:"required"`
-	Password       string `json:"password" binding:"required"`
-	InstanceName   string `json:"instance-name,omitempty"`
-	InstanceType   string `json:"instance-type,omitempty"`
-	ProjectID      string `json:"project-id,omitempty"`
-	ImageProjectID string `json:"image-project-id,omitempty"`
-	ImageName      string `json:"image-name,omitempty"`
-	Zone           string `json:"zone,omitempty"`
+	Username       string `form:"username" json:"username" binding:"required"`
+	Password       string `form:"password" json:"password" binding:"required"`
+	InstanceName   string `form:"instance-name,omitempty" json:"instance-name,omitempty"`
+	InstanceType   string `form:"instance-type,omitempty" json:"instance-type,omitempty"`
+	ProjectID      string `form:"project-id,omitempty" json:"project-id,omitempty"`
+	ImageProjectID string `form:"image-project-id,omitempty" json:"image-project-id,omitempty"`
+	ImageName      string `form:"image-name,omitempty" json:"image-name,omitempty"`
+	Zone           string `form:"zone,omitempty" json:"zone,omitempty"`
 }
 
 // Default Values for InstanceRequest
