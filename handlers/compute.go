@@ -38,7 +38,7 @@ func createInstanceAndGetIPAddresses(request *InstanceRequest) ([]string, error)
 				Boot:       true,
 				Type:       "PERSISTENT",
 				InitializeParams: &compute.AttachedDiskInitializeParams{
-					DiskName:    "my-root-pd",
+					DiskName:    request.InstanceName + "-root-pd",
 					SourceImage: imageURL,
 				},
 			},
