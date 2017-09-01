@@ -8,10 +8,10 @@ The approach I took for solving the problem is to inject a startup-script to the
 
 Given that we store the username and password in plain text in the metadata while creating the instance, the script deletes the sensitive information at the end. We also set a key on the metadata at the end of the script to make sure the script has passed fine.
 
-While there are other approaches to solving this problem, I found this to be the simplest of them. Some approaches I thought through and rejected were
+While there various ways to solving this problem, I found this to be the simplest of them. Would love to learn if there are more simpler ways to do this. Some approaches I thought and rejected were
 
-- Once the instance is up, SSH into the machine programmatically to run the required commands. This would require a lot of complexity in terms of managing SSH connections from Go.
-- Use ansible or any other tool to configure the instance once it is up.  This would require complexity in terms of managing process launching and exit status from Go.
+1. Once the instance is up, SSH into the machine programmatically to run the required commands. This would require a lot of complexity in terms of managing SSH connections from Go.
+2. Use ansible or any other tool to configure the instance once it is up.  This would require complexity in terms of managing process lifecycle from Go. Also needs other dependencies in order to run the service.
 
 ## Usage
 We use [`glide`](https://glide.sh/) for dependency management. Please make sure you've glide installed on your machine before attempting to build the project. To build and run the service you should run the following command
