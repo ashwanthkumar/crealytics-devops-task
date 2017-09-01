@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/ashwanthkumar/crealytics-devops-task.svg?branch=master)](https://travis-ci.org/ashwanthkumar/crealytics-devops-task)
 # crealytics-devops-task
 
 ## Usage
