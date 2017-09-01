@@ -58,8 +58,9 @@ func createInstanceAndGetIPAddresses(request *InstanceRequest) ([]string, error)
 		Metadata: &compute.Metadata{
 			Items: []*compute.MetadataItems{
 				item("startup-script-url", "https://raw.githubusercontent.com/ashwanthkumar/crealytics-devops-task/master/startup-script.sh"),
-				item("custom-user", request.Username),
-				item("custom-user-passwd", request.Password),
+				item(CustomUsername, request.Username),
+				item(CustomUserPassword, request.Password),
+				item(CustomScriptKey, ScriptStarted),
 			},
 		},
 	}
@@ -69,26 +70,50 @@ func createInstanceAndGetIPAddresses(request *InstanceRequest) ([]string, error)
 		return []string{}, err
 	}
 
-	inst := waitForInstanceToStart(request, service)
-	var allIPAddress []string
-	for _, netInterface := range inst.NetworkInterfaces {
-		allIPAddress = append(allIPAddress, netInterface.NetworkIP)
+	inst := waitForInstance(request, service)
+	if hasScriptPassed(inst.Metadata) {
+		var allIPAddress []string
+		for _, netInterface := range inst.NetworkInterfaces {
+			allIPAddress = append(allIPAddress, netInterface.NetworkIP)
+		}
+
+		return allIPAddress, err
 	}
 
-	return allIPAddress, err
+	return []string{}, fmt.Errorf("instance is up but configuration of the instance failed. Please check the logs on the machine manually")
 }
 
-func waitForInstanceToStart(request *InstanceRequest, service *compute.Service) *compute.Instance {
+func hasScriptFinished(metadata *compute.Metadata) bool {
+	for _, item := range metadata.Items {
+		if CustomScriptKey == item.Key {
+			return ScriptPassed == *item.Value || ScriptFailed == *item.Value
+		}
+	}
+
+	return false
+}
+
+func hasScriptPassed(metadata *compute.Metadata) bool {
+	for _, item := range metadata.Items {
+		if CustomScriptKey == item.Key {
+			return ScriptPassed == *item.Value
+		}
+	}
+
+	return false
+}
+
+func waitForInstance(request *InstanceRequest, service *compute.Service) *compute.Instance {
 	stillStarting := true
 	initialWaitDuration := time.Duration(0)
 	var inst *compute.Instance
 	for stillStarting {
 		inst, _ = service.Instances.Get(request.ProjectID, request.Zone, request.InstanceName).Do()
-		if inst != nil && inst.Status == "RUNNING" {
+		if inst != nil && inst.Status == "RUNNING" && hasScriptFinished(inst.Metadata) {
 			stillStarting = false
 		} else {
 			initialWaitDuration = initialWaitDuration + 1000
-			fmt.Printf("%s is still starting up, waiting for %d milliseconds\n", inst.Name, initialWaitDuration)
+			fmt.Printf("%s is still starting up and getting configured, waiting for %d milliseconds\n", inst.Name, initialWaitDuration)
 			time.Sleep(initialWaitDuration * time.Millisecond)
 		}
 	}

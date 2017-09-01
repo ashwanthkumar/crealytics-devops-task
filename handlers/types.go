@@ -31,6 +31,14 @@ const (
 	InstanceName   = "crealytics-devops-task-demo"
 	InstanceType   = "f1-micro"
 	Description    = "compute instance created via crealytics-devops-task"
+
+	CustomUserPassword = "custom-user-passwd"
+	CustomUsername     = "custom-user"
+
+	CustomScriptKey = "custom-startup-script-status"
+	ScriptStarted   = "started"
+	ScriptPassed    = "OK"
+	ScriptFailed    = "failed"
 )
 
 var scopes = []string{

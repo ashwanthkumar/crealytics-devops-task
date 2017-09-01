@@ -4,9 +4,14 @@
 Solution to the [devops task](https://docs.google.com/document/d/18zk1WbVBPuooO_sCPwA1Y8KkHubQSPJHfBZZ7eHFgKs/edit?ts=59a81932#) given as part of interview process at [Crealytics](https://crealytics.com/career/), Devops Role.
 
 ## Solution Approach
-The approach I'm taking for solving the problem is to have a startup-script which would create the required user and password with sudo privileges. I then configure the instance with metadata (`startup-script-url`) pointing it to the [file on Github](https://raw.githubusercontent.com/ashwanthkumar/crealytics-devops-task/master/startup-script.sh). Rest is taken care by Google Compute.
+The approach I took for solving the problem is to inject a startup-script to the VM that would create the required user with password and sudo privileges. It would pick the username and password from the instance metadata. The startup-script is configured via the metadata (`startup-script-url`) pointing it to the [file on Github](https://raw.githubusercontent.com/ashwanthkumar/crealytics-devops-task/master/startup-script.sh). Rest is taken care by Google Compute.
 
-We store the username and password in plain text in the metadata while creating the instance. The startup script then deletes this sensitive information after configuring the required user with sudo permissions.
+Given that we store the username and password in plain text in the metadata while creating the instance, the script deletes the sensitive information at the end. We also set a key on the metadata at the end of the script to make sure the script has passed fine.
+
+While there are other approaches to solving this problem, I found this to be the simplest of them. Some approaches I thought through and rejected were
+
+- Once the instance is up, SSH into the machine programmatically to run the required commands. This would require a lot of complexity in terms of managing SSH connections from Go.
+- Use ansible or any other tool to configure the instance once it is up.  This would require complexity in terms of managing process launching and exit status from Go.
 
 ## Usage
 We use [`glide`](https://glide.sh/) for dependency management. Please make sure you've glide installed on your machine before attempting to build the project. To build and run the service you should run the following command
