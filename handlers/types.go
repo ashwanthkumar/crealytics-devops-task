@@ -1,10 +1,13 @@
 package handlers
 
-import (
-	"fmt"
+import compute "google.golang.org/api/compute/v1"
 
-	"github.com/gin-gonic/gin"
-)
+// InstanceInfo is a model to bind the incoming request for /v1/instances/info/:name
+type InstanceInfo struct {
+	Name      string `form:"name"`
+	ProjectID string `form:"project-id"`
+	Zone      string `form:"zone"`
+}
 
 // InstanceRequest is a model to bind the incoming request for /v1/create/instances
 type InstanceRequest struct {
@@ -16,6 +19,7 @@ type InstanceRequest struct {
 	ImageProjectID string `form:"image-project-id,omitempty" json:"image-project-id,omitempty"`
 	ImageName      string `form:"image-name,omitempty" json:"image-name,omitempty"`
 	Zone           string `form:"zone,omitempty" json:"zone,omitempty"`
+	Description    string `form:"description,omitempty" json:"description,omitempty"`
 }
 
 // Default Values for InstanceRequest
@@ -26,40 +30,10 @@ const (
 	Zone           = "us-central1-a"
 	InstanceName   = "crealytics-devops-task-demo"
 	InstanceType   = "f1-micro"
+	Description    = "compute instance created via crealytics-devops-task"
 )
 
-// CreateInstanceHandler is the entry point for /v1/instances/create API
-func CreateInstanceHandler(c *gin.Context) {
-	// Start off with defaults for certain properties, override them during BindJSON
-	request := &InstanceRequest{
-		InstanceName:   InstanceName,
-		InstanceType:   InstanceType,
-		ProjectID:      ProjectID,
-		ImageProjectID: ImageProjectID,
-		ImageName:      ImageName,
-		Zone:           Zone,
-	}
-	err := c.Bind(request)
-	if err != nil {
-		c.JSON(400, gin.H{
-			"status": "failed",
-			"msg":    fmt.Sprintf("%v", err),
-		})
-		return
-	}
-
-	ipAddresses, err := createInstanceAndGetIPAddresses(request)
-	if err != nil {
-		c.JSON(500, gin.H{
-			"status": "failed",
-			"msg":    fmt.Sprintf("%s", err),
-		})
-	} else {
-		c.JSON(200, gin.H{
-			"status":   "OK",
-			"username": request.Username,
-			"password": request.Password,
-			"ips":      ipAddresses,
-		})
-	}
+var scopes = []string{
+	compute.DevstorageFullControlScope,
+	compute.ComputeScope,
 }

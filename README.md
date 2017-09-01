@@ -43,6 +43,7 @@ This should launch the server on the port `8080` by default if no `PORT` environ
 | image-project-id | Project ID of the image that we want to use. | ubuntu-os-cloud |
 | image-name | Name of the image from `image-project-id` to use. | ubuntu-1604-xenial-v20170815a |
 | zone | Google Compute zone in which we should create the instance. | us-central1-a |
+| description | Description of the instance that we create. | compute instance created via crealytics-devops-task |
 
 ## Note on Google Cloud Credentials
 The app configures itself with google cloud credentials via [Application Default Credentials](https://developers.google.com/identity/protocols/application-default-credentials). Please follow the instructions to configure the credentials.

@@ -8,11 +8,6 @@ import (
 	compute "google.golang.org/api/compute/v1"
 )
 
-var scopes = []string{
-	compute.DevstorageFullControlScope,
-	compute.ComputeScope,
-}
-
 func createInstanceAndGetIPAddresses(request *InstanceRequest) ([]string, error) {
 	client, err := gclient.CreateOrGetClient(scopes)
 	if err != nil {
@@ -30,7 +25,7 @@ func createInstanceAndGetIPAddresses(request *InstanceRequest) ([]string, error)
 
 	instance := &compute.Instance{
 		Name:        request.InstanceName,
-		Description: "compute sample instance",
+		Description: request.Description,
 		MachineType: prefix + "/zones/" + request.Zone + "/machineTypes/" + request.InstanceType,
 		Disks: []*compute.AttachedDisk{
 			{
