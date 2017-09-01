@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -eE
 
 function metadata {
   KEY=$1
@@ -9,6 +9,9 @@ function metadata {
 
 CUSTOM_USER_KEY="custom-user"
 CUSTOM_USER_PASSWD_KEY="custom-user-passwd"
+CUSTOM_SCRIPT_STATUS="custom-startup-script-status"
+
+trap gcloud compute instances add-metadata ${NAME} --zone ${ZONE} --metadata ${CUSTOM_SCRIPT_STATUS}="failed" ERR
 
 NAME=$(metadata "name")
 ZONE=$(metadata "zone")
@@ -24,3 +27,4 @@ echo "${USERNAME}:${PASSWORD}" | chpasswd
 
 # Delete the plain text username and password once we've set things up
 gcloud compute instances remove-metadata ${NAME} --zone ${ZONE} --keys ${CUSTOM_USER_KEY},${CUSTOM_USER_PASSWD_KEY}
+gcloud compute instances add-metadata ${NAME} --zone ${ZONE} --metadata ${CUSTOM_SCRIPT_STATUS}="OK"
