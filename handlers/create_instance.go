@@ -30,6 +30,7 @@ const (
 
 // CreateInstanceHandler is the entry point for /v1/instances/create API
 func CreateInstanceHandler(c *gin.Context) {
+	// Start off with defaults for certain properties, override them during BindJSON
 	request := &InstanceRequest{
 		InstanceName:   InstanceName,
 		InstanceType:   InstanceType,

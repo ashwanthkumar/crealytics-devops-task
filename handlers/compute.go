@@ -62,7 +62,7 @@ func createInstanceAndGetIPAddresses(request *InstanceRequest) ([]string, error)
 		},
 		Metadata: &compute.Metadata{
 			Items: []*compute.MetadataItems{
-				item("startup-script-url", "gs://crealytics-devops-task/startup-script.sh"),
+				item("startup-script-url", "https://raw.githubusercontent.com/ashwanthkumar/crealytics-devops-task/master/startup-script.sh"),
 				item("custom-user", request.Username),
 				item("custom-user-passwd", request.Password),
 			},
