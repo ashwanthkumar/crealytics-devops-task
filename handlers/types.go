@@ -22,7 +22,7 @@ type InstanceRequest struct {
 	Description    string `form:"description,omitempty" json:"description,omitempty"`
 }
 
-// Default Values for InstanceRequest
+// Default Values for types
 const (
 	ProjectID      = "crealytics-devops-task"
 	ImageProjectID = "ubuntu-os-cloud"
