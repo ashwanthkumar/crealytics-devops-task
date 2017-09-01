@@ -109,7 +109,7 @@ func waitForInstance(request *InstanceRequest, service *compute.Service) *comput
 	var inst *compute.Instance
 	for stillStarting {
 		inst, _ = service.Instances.Get(request.ProjectID, request.Zone, request.InstanceName).Do()
-		if inst != nil && inst.Status == "RUNNING" && hasScriptFinished(inst.Metadata) {
+		if inst != nil && inst.Status == "RUNNING" && hasScriptFinished(inst.Metadata) || MaxWaitBackoff == initialWaitDuration {
 			stillStarting = false
 		} else {
 			initialWaitDuration = initialWaitDuration + 1000

@@ -39,6 +39,8 @@ const (
 	ScriptStarted   = "started"
 	ScriptPassed    = "OK"
 	ScriptFailed    = "failed"
+
+	MaxWaitBackoff = 30 * 1000
 )
 
 var scopes = []string{
