@@ -9,14 +9,13 @@ The approach I'm taking for solving the problem is to have a startup-script whic
 We store the username and password in plain text in the metadata while creating the instance. The startup script then deletes this sensitive information after configuring the required user with sudo permissions.
 
 ## Usage
-We use [`glide`](https://glide.sh/) for dependency management. Please make sure you've glide installed on your machine before attempting to build the project. To build and run the binary you should run the following commands
+We use [`glide`](https://glide.sh/) for dependency management. Please make sure you've glide installed on your machine before attempting to build the project. To build and run the service you should run the following command
 
 ```
-make setup
-make build
+make
 ```
 
-The above 2 commands will install all the necessary dependencies and build a single binary `crealytics-devops-task`. You can then run the binary using
+The above command will install all the necessary dependencies, build a single binary `crealytics-devops-task` and start the service. You can also then manually start the service using
 
 ```
 ./crealytics-devops-task

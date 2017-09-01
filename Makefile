@@ -1,6 +1,8 @@
 APPNAME = crealytics-devops-task
 VERSION = 0.0.1-dev
 
+all: setup build run
+
 test:
 	go test -v github.com/ashwanthkumar/${APPNAME}
 
@@ -8,6 +10,9 @@ setup:
 	glide install
 
 build-all: build-mac build-linux
+
+run:
+	./${APPNAME}
 
 build:
 	go build -o ${APPNAME} .
