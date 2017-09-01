@@ -10,11 +10,11 @@ import (
 type InstanceRequest struct {
 	Username       string `json:"user" binding:"required"`
 	Password       string `json:"password" binding:"required"`
-	InstanceName   string `json:"name,omitempty"`
-	InstanceType   string `json:"type,omitempty"`
-	ProjectID      string `json:"projectId,omitempty"`
-	ImageProjectID string `json:"imageProjectId,omitempty"`
-	ImageName      string `json:"imageName,omitempty"`
+	InstanceName   string `json:"instance-name,omitempty"`
+	InstanceType   string `json:"instance-type,omitempty"`
+	ProjectID      string `json:"project-id,omitempty"`
+	ImageProjectID string `json:"image-project-id,omitempty"`
+	ImageName      string `json:"image-name,omitempty"`
 	Zone           string `json:"zone,omitempty"`
 }
 
@@ -24,7 +24,7 @@ const (
 	ImageProjectID = "ubuntu-os-cloud"
 	ImageName      = "ubuntu-1604-xenial-v20170815a"
 	Zone           = "us-central1-a"
-	InstanceName   = "test-1"
+	InstanceName   = "crealytics-devops-task-demo"
 	InstanceType   = "f1-micro"
 )
 
@@ -39,7 +39,7 @@ func CreateInstanceHandler(c *gin.Context) {
 		ImageName:      ImageName,
 		Zone:           Zone,
 	}
-	err := c.BindJSON(request)
+	err := c.Bind(request)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"status": "failed",
