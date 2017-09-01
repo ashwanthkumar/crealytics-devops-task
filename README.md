@@ -1,10 +1,10 @@
 [![Build Status](https://travis-ci.org/ashwanthkumar/crealytics-devops-task.svg?branch=master)](https://travis-ci.org/ashwanthkumar/crealytics-devops-task)
 # crealytics-devops-task
 
-Contains solution to the [devops task](https://docs.google.com/document/d/18zk1WbVBPuooO_sCPwA1Y8KkHubQSPJHfBZZ7eHFgKs/edit?ts=59a81932#) given as part of interview process at [Crealytics](https://crealytics.com/career/), Devops Role.
+Solution to the [devops task](https://docs.google.com/document/d/18zk1WbVBPuooO_sCPwA1Y8KkHubQSPJHfBZZ7eHFgKs/edit?ts=59a81932#) given as part of interview process at [Crealytics](https://crealytics.com/career/), Devops Role.
 
 ## Solution Approach
-The approach I'm taking for solving the problem is to have a startup-script which would create the required user and password with sudo privileges. I then configure the instance with metadata (`startup-script-url`) pointing it to the [project on Github](https://raw.githubusercontent.com/ashwanthkumar/crealytics-devops-task/master/startup-script.sh). Rest is taken care by Google Compute.
+The approach I'm taking for solving the problem is to have a startup-script which would create the required user and password with sudo privileges. I then configure the instance with metadata (`startup-script-url`) pointing it to the [file on Github](https://raw.githubusercontent.com/ashwanthkumar/crealytics-devops-task/master/startup-script.sh). Rest is taken care by Google Compute.
 
 We store the username and password in plain text in the metadata while creating the instance. The startup script then deletes this sensitive information after configuring the required user with sudo permissions.
 
