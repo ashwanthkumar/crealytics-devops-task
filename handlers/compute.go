@@ -101,7 +101,7 @@ func waitForInstanceToStart(request *InstanceRequest, service *compute.Service) 
 	return inst
 }
 
-func getInstance(instanceName string) (*compute.Instance, error) {
+func getInstance(request *InstanceInfo) (*compute.Instance, error) {
 	client, err := gclient.CreateOrGetClient(scopes)
 	if err != nil {
 		return nil, err
@@ -112,7 +112,7 @@ func getInstance(instanceName string) (*compute.Instance, error) {
 		return nil, err
 	}
 
-	inst, err := service.Instances.Get(ProjectID, Zone, instanceName).Do()
+	inst, err := service.Instances.Get(request.ProjectID, request.Zone, request.Name).Do()
 	if err != nil {
 		return nil, err
 	}
