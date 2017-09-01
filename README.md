@@ -2,12 +2,12 @@
 # crealytics-devops-task
 
 ## Solution Approach
-The approach I'm taking for solving the problem is to have a startup-script which would create the required user and password with sudo privileges. The `startup-script.sh` is the file that's uploaded to `gs://crealytics-devops-task/startup-script.sh`. I then configure the instance with metadata (`startup-script-url`) pointing to that location on the cloud storage. Rest is taken care by Google Compute.
+The approach I'm taking for solving the problem is to have a startup-script which would create the required user and password with sudo privileges. I then configure the instance with metadata (`startup-script-url`) pointing it to the [project on Github](https://raw.githubusercontent.com/ashwanthkumar/crealytics-devops-task/master/startup-script.sh). Rest is taken care by Google Compute.
 
-We store the username and password in plain text in the metadata as well while creating the instance. The startup script then deletes this sensitive information after configuring the required user.
+We store the username and password in plain text in the metadata while creating the instance. The startup script then deletes this sensitive information after configuring the required user with sudo permissions.
 
 ## Usage
-We use [`glide`](https://glide.sh/) for dependency management. To build and run the binary you should run the following commands
+We use [`glide`](https://glide.sh/) for dependency management. Please make sure you've glide installed on your machine before attempting to build the project. To build and run the binary you should run the following commands
 
 ```
 make setup
