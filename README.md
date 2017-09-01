@@ -31,23 +31,23 @@ This should launch the server on the port `8080` by default if no `PORT` environ
 ## API
 | Endpoint | Method | Description |
 | :--- | :---: | :--- |
-| /healthcheck | GET | Returns a 200 response code if the service is up |
-| /v1/instances/create | POST | You need to pass "user" and "password" either as query parameter or part of the JSON payload in the body. You can also control the instance type, zone, instance image, etc. See [InstanceRequest Model](#instancerequest-model) for the full specification. We would wait for the instance to start and return the username, password and all the ip addresses associated the instance. |
-| /v1/instances/info/:name | GET | Returns the information about the instance identified by `:name` in the path parameter. It assumes the default project-id and zone as defined in [InstanceRequest Model](#instancerequest-model). You can override them via `project-id` and `zone` query parameters. This is mostly used for debugging the instance related information. It returns the [Instance](https://godoc.org/google.golang.org/api/compute/v1#Instance) object as the response. |
+| `/healthcheck` | GET | Returns a 200 response code if the service is up |
+| `/v1/instances/create` | POST | You need to pass "user" and "password" either as query parameter or part of the JSON payload in the body. You can also control the instance type, zone, instance image, etc. See [InstanceRequest Model](#instancerequest-model) for the full specification. We would wait for the instance to start and return the username, password and all the ip addresses associated the instance. |
+| `/v1/instances/info/:name` | GET | Returns the information about the instance identified by `:name` in the path parameter. It assumes the default project-id and zone as defined in [InstanceRequest Model](#instancerequest-model). You can override them via `project-id` and `zone` query parameters. This is mostly used for debugging the instance related information. It returns the [Instance](https://godoc.org/google.golang.org/api/compute/v1#Instance) object as the response. |
 
 ### InstanceRequest Model
 
 | Name | Description | Default |
 | --- | --- | --- |
-| username | Login of the user to create. Once the instance is created you can become that user via `su - ${user}`. This user also has `sudo` rights on the system. | None (Required) |
-| password | Password of the user that we created. | None (Required) |
-| instance-name | Name of the instance (VM) that we create on Google cloud. | crealytics-devops-task-demo |
-| instance-type | [Machine Type](https://cloud.google.com/compute/docs/machine-types) of the VM to create. | f1-micro |
-| project-id | Project ID against which we should create the instance. | crealytics-devops-task |
-| image-project-id | Project ID of the image that we want to use. | ubuntu-os-cloud |
-| image-name | Name of the image from `image-project-id` to use. | ubuntu-1604-xenial-v20170815a |
-| zone | Google Compute zone in which we should create the instance. | us-central1-a |
-| description | Description of the instance that we create. | compute instance created via crealytics-devops-task |
+| `username` | Login of the user to create. Once the instance is created you can become that user via `su - ${user}`. This user also has `sudo` rights on the system. | None (Required) |
+| `password` | Password of the user that we created. | None (Required) |
+| `instance-name` | Name of the instance (VM) that we create on Google cloud. | crealytics-devops-task-demo |
+| `instance-type` | [Machine Type](https://cloud.google.com/compute/docs/machine-types) of the VM to create. | f1-micro |
+| `project-id` | Project ID against which we should create the instance. | crealytics-devops-task |
+| `image-project-id` | Project ID of the image that we want to use. | ubuntu-os-cloud |
+| `image-name` | Name of the image from `image-project-id` to use. | ubuntu-1604-xenial-v20170815a |
+| `zone` | Google Compute zone in which we should create the instance. | us-central1-a |
+| `description` | Description of the instance that we create. | compute instance created via crealytics-devops-task |
 
 ## Note on Google Cloud Credentials
 The app configures itself with google cloud credentials via [Application Default Credentials](https://developers.google.com/identity/protocols/application-default-credentials). Please follow the instructions to configure the credentials.
