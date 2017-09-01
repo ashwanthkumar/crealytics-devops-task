@@ -11,7 +11,7 @@ CUSTOM_USER_KEY="custom-user"
 CUSTOM_USER_PASSWD_KEY="custom-user-passwd"
 CUSTOM_SCRIPT_STATUS="custom-startup-script-status"
 
-trap gcloud compute instances add-metadata ${NAME} --zone ${ZONE} --metadata ${CUSTOM_SCRIPT_STATUS}="failed" ERR
+trap 'gcloud compute instances add-metadata ${NAME} --zone ${ZONE} --metadata ${CUSTOM_SCRIPT_STATUS}="failed"' ERR
 
 NAME=$(metadata "name")
 ZONE=$(metadata "zone")
